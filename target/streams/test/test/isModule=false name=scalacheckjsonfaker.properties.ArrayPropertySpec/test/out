@@ -1,8 +1,0 @@
-[0m[[0m[0minfo[0m] [0m[0m[32mArrayPropertySpec:[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should skip when type not array[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should produce an array property[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should create items of type string[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should create items of type boolean[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should respect the minItems property[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should respect the maxItems property[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should respect both minItems and maxItems property[0m[0m

@@ -1,7 +1,0 @@
-[0m[[0m[0minfo[0m] [0m[0m[32mStringPropertySpec:[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should skip when type not string[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should produce a string property[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should respect min length property[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should respect max length property[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should respect min and max length properies[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should respect the enum property[0m[0m

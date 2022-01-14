@@ -1,7 +1,0 @@
-[0m[[0m[33mwarn[0m] [0m[0m/home/kurt/Documents/git/kurtlogan/scalacheck-json-faker/src/test/scala/scalacheckjsonfaker/properties/ArrayPropertySpec.scala:31:46: Type parameter should not be specified because it will be erased at runtime, please use _ instead.  Note that in future version of ScalaTest this will give a compiler error.[0m
-[0m[[0m[33mwarn[0m] [0m[0m      arr.as[List[String]] should be (a[List[String]])[0m
-[0m[[0m[33mwarn[0m] [0m[0m                                             ^[0m
-[0m[[0m[33mwarn[0m] [0m[0m/home/kurt/Documents/git/kurtlogan/scalacheck-json-faker/src/test/scala/scalacheckjsonfaker/properties/ArrayPropertySpec.scala:40:47: Type parameter should not be specified because it will be erased at runtime, please use _ instead.  Note that in future version of ScalaTest this will give a compiler error.[0m
-[0m[[0m[33mwarn[0m] [0m[0m      arr.as[List[Boolean]] should be (a[List[Boolean]])[0m
-[0m[[0m[33mwarn[0m] [0m[0m                                              ^[0m
-[0m[[0m[33mwarn[0m] [0m[0mtwo warnings found[0m

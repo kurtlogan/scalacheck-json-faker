@@ -1,7 +1,0 @@
-[0m[[0m[0minfo[0m] [0m[0m[32mObjectPropertySpec:[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should skip when type not object[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should produce an object property[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should create boolean items[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should create string items[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should create string and boolean items[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should respect the required property[0m[0m
