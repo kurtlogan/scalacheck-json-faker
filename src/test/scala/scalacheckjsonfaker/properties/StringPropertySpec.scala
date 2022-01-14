@@ -18,6 +18,7 @@ class StringPropertySpec extends FlatSpec with Matchers with PropertyChecks with
   def minType(min: Int) = simpleStringType + ("minLength" -> JsNumber(min))
   def maxType(max: Int) = simpleStringType + ("maxLength" -> JsNumber(max))
   def enumType(values: List[String]) = simpleStringType + ("enum" -> JsArray(values.map(JsString)))
+  def patternType(value: String) = simpleStringType + ("pattern" -> JsString(value))
 
   val rangeGen: Gen[(Int, Int)] =
     for {
@@ -73,6 +74,15 @@ class StringPropertySpec extends FlatSpec with Matchers with PropertyChecks with
       forAll(extract(enumType(xs)).value) { s =>
         xs should contain (s.as[String])
       }
+    }
+  }
+
+  it should "respect the pattern property" in {
+
+    val pattern = "^[A-Z]{2}[a-z]{2}$"
+
+    forAll(extract(patternType(pattern)).value) { s =>
+      s.as[String] should fullyMatch regex pattern
     }
   }
 }

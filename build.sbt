@@ -10,5 +10,6 @@ lazy val root = (project in file(".")).
     name := "scalacheck-json-faker",
     libraryDependencies += scalaCheck,
     libraryDependencies += playJson,
+    libraryDependencies += scRegExp,
     libraryDependencies += scalaTest % Test,
   )

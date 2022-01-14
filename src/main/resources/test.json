@@ -28,6 +28,10 @@
             "Wales",
             "Northern Ireland"
           ]
+        },
+        "postcode": {
+          "type": "string",
+          "pattern": "[A-Z]{2}[0-9]{2}\\s?\\d[A-Z]{2}"
         }
       }
     }
