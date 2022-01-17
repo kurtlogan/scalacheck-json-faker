@@ -8,7 +8,7 @@ import scalacheckjsonfaker.schema.Schema
 class BooleanPropertySpec extends FlatSpec with Matchers with PropertyChecks with OptionValues {
 
   def typeProp(value: String) = "type" -> JsString(value)
-  val extract = BooleanProperty.extract _
+  val extract = BooleanProperty.gen _
 
   it should "skip when type not boolean" in {
     extract(JsObject(Map(typeProp("unknown")))) shouldBe None

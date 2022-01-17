@@ -15,7 +15,7 @@ class NumberPropertySpec extends FlatSpec with Matchers with PropertyChecks with
   def maxType(max: Long) = numberType + ("maximum" -> JsNumber(max))
   def minType(max: Long) = numberType + ("minimum" -> JsNumber(max))
 
-  val extract = NumberProperty.extract(NumberConfig.default) _
+  val extract = NumberProperty.gen(NumberConfig.default) _
 
   it should "skip when type not number" in {
     extract(JsObject(Map(typeProp("unknown")))) shouldBe None

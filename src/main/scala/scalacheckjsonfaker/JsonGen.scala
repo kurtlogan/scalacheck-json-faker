@@ -3,7 +3,7 @@ package scalacheckjsonfaker
 import org.scalacheck.Gen
 import play.api.libs.json.{JsObject, JsValue, Json}
 import scalacheckjsonfaker.config.Config
-import scalacheckjsonfaker.properties.Properties
+import scalacheckjsonfaker.properties.Generators
 import scalacheckjsonfaker.schema.Schema
 
 object JsonGen {
@@ -22,7 +22,7 @@ object JsonGen {
   def from(o: JsObject): Gen[JsValue] = from(o, defaultConfig)
 
   def from(o: JsObject, config: Config): Gen[JsValue] = {
-    val properties = new Properties(Schema(o), config)
-    properties.extract(o).getOrElse(throw new Exception("Unknown type"))
+    val properties = new Generators(Schema(o), config)
+    properties.generate(o).getOrElse(throw new Exception("Unknown type"))
   }
 }

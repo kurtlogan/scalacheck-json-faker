@@ -18,8 +18,8 @@ class ObjectPropertySpec extends FlatSpec with Matchers with PropertyChecks with
   val stringType = JsObject(Map(typeProp("string")))
   val booleanProperties = JsObject(Map("properties" -> JsObject(Map("b" -> booleanType))))
   val stringProperties = JsObject(Map("properties" -> JsObject(Map("s" -> stringType))))
-  val properties = new Properties(Schema(JsObject.empty), Config.default)
-  val extract = ObjectProperty.extract(properties) _
+  val generators = new Generators(Schema(JsObject.empty), Config.default)
+  val extract = ObjectProperty.gen(generators) _
 
   it should "skip when type not object" in {
     extract(JsObject(Map(typeProp("unknown")))) shouldBe None

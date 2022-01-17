@@ -2,24 +2,16 @@ package scalacheckjsonfaker.properties
 
 import org.scalacheck.Gen
 import play.api.libs.json.{JsArray, JsObject, JsString, JsValue}
+import scalacheckjsonfaker.values.{Properties, Required, Type}
 
 object ObjectProperty {
 
-  def extract(properties: Properties)(obj: JsObject): Option[Gen[JsValue]] = {
+  def gen(generators: Generators)(obj: JsObject): Option[Gen[JsValue]] = {
 
-    if(obj.value.get("type").contains(JsString("object"))) {
-      val required = obj.value.get("required").collect {
-        case JsArray(value) => value.collect {
-          case JsString(value) => value
-          case _               => throw new Exception("required field name not of type string")
-        }
-        case _              => throw new Exception("required not type of array")
-      }.getOrElse(List())
+    if(Type(obj).contains("object")) {
+      val required = Required(obj).getOrDefault(List())
 
-      val props = obj.value.get("properties").collect {
-        case JsObject(underlying) => underlying
-        case _                    => throw new Exception("properties not of type object")
-      }.get
+      val props = Properties(obj).asOpt.map(_.value).getOrElse(throw new Exception("Properties is required for object"))
 
       require(props.keys.toSet.intersect(required.toSet) == required.toSet, "not all required fields found in properties")
 
@@ -29,7 +21,7 @@ object ObjectProperty {
           case _               => throw new Exception("object property must be an object")
         }.get
 
-        properties.extract(obj).getOrElse(throw new Exception("unknown data type"))
+        generators.generate(obj).getOrElse(throw new Exception("unknown data type"))
           .flatMap { js =>
             val objWithKey = JsObject(Map(k -> js))
             Gen.option(js).map(_.fold(objWithKey)(_ => objWithKey))

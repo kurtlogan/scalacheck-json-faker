@@ -30,8 +30,8 @@ class RefPropertySpec extends FlatSpec with Matchers with PropertyChecks with Op
       | }
       |}""".stripMargin).as[JsObject]
 
-  val properties = new Properties(Schema(schema), Config.default)
-  val extract = RefProperty.extract(Schema(schema), properties) _
+  val generators = new Generators(Schema(schema), Config.default)
+  val extract = RefProperty.gen(Schema(schema), generators) _
 
   def refProperty(path: String) = JsObject(Map("$ref" -> JsString(path)))
 

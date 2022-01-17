@@ -1,6 +1,6 @@
 package scalacheckjsonfaker.values
 
-import play.api.libs.json.{JsArray, JsObject, Reads}
+import play.api.libs.json.{JsObject, Reads}
 
 sealed trait Value[T] {
 
@@ -28,7 +28,7 @@ case class MaxLength(obj: JsObject) extends Value[Int] {
   val key = "maxLength"
 }
 
-case class Enum(obj: JsObject) extends Value[JsArray] {
+case class Enum(obj: JsObject) extends Value[Seq[String]] {
   val key = "enum"
 }
 
@@ -48,9 +48,21 @@ case class Items(obj: JsObject) extends Value[JsObject] {
   val key = "items"
 }
 
+case class Ref(obj: JsObject) extends Value[String] {
+  val key = "$ref"
+}
+
 case class Type(obj: JsObject) extends Value[String] {
 
   val key = "type"
 
   def contains(s: String): Boolean = asOpt.contains(s)
+}
+
+case class Required(obj: JsObject) extends Value[Seq[String]] {
+  val key = "required"
+}
+
+case class Properties(obj: JsObject) extends Value[JsObject] {
+  val key = "properties"
 }

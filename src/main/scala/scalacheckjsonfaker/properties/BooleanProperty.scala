@@ -1,13 +1,13 @@
 package scalacheckjsonfaker.properties
 
 import org.scalacheck.Gen
-import play.api.libs.json.{JsBoolean, JsObject, JsString, JsValue}
-import scalacheckjsonfaker.schema.Schema
+import play.api.libs.json.{JsBoolean, JsObject, JsValue}
+import scalacheckjsonfaker.values.Type
 
 object BooleanProperty {
 
-  def extract(obj: JsObject): Option[Gen[JsValue]] = {
-    if(obj.value.get("type").contains(JsString("boolean"))) {
+  def gen(obj: JsObject): Option[Gen[JsValue]] = {
+    if(Type(obj).contains("boolean")) {
       Some(Gen.oneOf(true, false).map(JsBoolean))
     } else {
       None

@@ -19,7 +19,7 @@ class ArrayPropertySpec extends FlatSpec with Matchers with PropertyChecks with 
   def minType(min: Int) = JsObject(Map("minItems" -> JsNumber(min)))
   def maxType(max: Int) = JsObject(Map("maxItems" -> JsNumber(max)))
 
-  val properties = new Properties(Schema(JsObject.empty), Config.default)
+  val generators = new Generators(Schema(JsObject.empty), Config.default)
 
   val rangeGen: Gen[(Int, Int)] =
     for {
@@ -29,7 +29,7 @@ class ArrayPropertySpec extends FlatSpec with Matchers with PropertyChecks with 
       (Math.min(i, j), Math.max(i, j))
     }
 
-  val extract = ArrayProperty.extract(properties, ArrayConfig.default) _
+  val extract = ArrayProperty.gen(generators, ArrayConfig.default) _
 
   it should "skip when type not array" in {
     extract(JsObject(Map(typeProp("unknown")))) shouldBe None

@@ -29,7 +29,7 @@ class StringPropertySpec extends FlatSpec with Matchers with PropertyChecks with
       (Math.min(i, j), Math.max(i, j))
     }
 
-  val extract = StringProperty.extract(StringConfig.default) _
+  val extract = StringProperty.gen(StringConfig.default) _
 
   it should "skip when type not string" in {
     extract(JsObject(Map(typeProp("unknown")))) shouldBe None
@@ -60,7 +60,7 @@ class StringPropertySpec extends FlatSpec with Matchers with PropertyChecks with
     }
   }
 
-  it should "respect min and max length properies" in {
+  it should "respect min and max length properties" in {
 
     forAll(rangeGen) { case (i, j) =>
       forAll(extract(minType(i) ++ maxType(j)).value) { s =>
