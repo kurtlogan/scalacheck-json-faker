@@ -2,10 +2,11 @@ package scalacheckjsonfaker.properties
 
 import org.scalacheck.Gen
 import play.api.libs.json.{JsArray, JsObject, JsString, JsValue}
+import scalacheckjsonfaker.schema.Schema
 
 object ObjectProperty {
 
-  def extract(obj: JsObject): Option[Gen[JsValue]] = {
+  def extract(schema: Schema, obj: JsObject): Option[Gen[JsValue]] = {
 
     if(obj.value.get("type").contains(JsString("object"))) {
       val required = obj.value.get("required").collect {
@@ -29,7 +30,7 @@ object ObjectProperty {
           case _               => throw new Exception("object property must be an object")
         }.get
 
-        Properties.extract(obj).getOrElse(throw new Exception("unknown data type"))
+        Properties.extract(schema, obj).getOrElse(throw new Exception("unknown data type"))
           .flatMap { js =>
             val objWithKey = JsObject(Map(k -> js))
             Gen.option(js).map(_.fold(objWithKey)(_ => objWithKey))

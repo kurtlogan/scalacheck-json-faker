@@ -12,4 +12,5 @@ lazy val root = (project in file(".")).
     libraryDependencies += playJson,
     libraryDependencies += scRegExp,
     libraryDependencies += scalaTest % Test,
+    libraryDependencies += jsonSchema % Test,
   )

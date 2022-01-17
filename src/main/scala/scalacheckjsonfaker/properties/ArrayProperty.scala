@@ -2,14 +2,15 @@ package scalacheckjsonfaker.properties
 
 import org.scalacheck.Gen
 import play.api.libs.json.{JsArray, JsObject, JsString, JsValue}
+import scalacheckjsonfaker.schema.Schema
 
 object ArrayProperty {
 
-  def extract(obj: JsObject): Option[Gen[JsValue]] = {
+  def extract(schema: Schema, obj: JsObject): Option[Gen[JsValue]] = {
 
     if(obj.value.get("type").contains(JsString("array"))) {
       val items = obj.value.getOrElse("items", throw new Exception("Items is required"))
-      val itemGen = Properties.extract(items.asInstanceOf[JsObject]).getOrElse(throw new Exception("Unknown object type"))
+      val itemGen = Properties.extract(schema, items.asInstanceOf[JsObject]).getOrElse(throw new Exception("Unknown object type"))
 
       val min = obj.value.get("minItems").map(_.as[Int]).getOrElse(0)
       val max = obj.value.get("maxItems").map(_.as[Int]).getOrElse(100)

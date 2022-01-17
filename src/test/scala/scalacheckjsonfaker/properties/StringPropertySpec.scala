@@ -5,6 +5,7 @@ import org.scalacheck.{Gen, Shrink}
 import org.scalatest._
 import org.scalatest.prop.PropertyChecks
 import play.api.libs.json.{JsArray, JsNumber, JsObject, JsString, JsValue, Json}
+import scalacheckjsonfaker.schema.Schema
 
 class StringPropertySpec extends FlatSpec with Matchers with PropertyChecks with OptionValues {
 
@@ -28,7 +29,7 @@ class StringPropertySpec extends FlatSpec with Matchers with PropertyChecks with
       (Math.min(i, j), Math.max(i, j))
     }
 
-  val extract = StringProperty.extract _
+  val extract = StringProperty.extract(Schema(JsObject.empty), _)
 
   it should "skip when type not string" in {
     extract(JsObject(Map(typeProp("unknown")))) shouldBe None

@@ -5,6 +5,7 @@ import org.scalacheck.Gen.chooseNum
 import org.scalatest._
 import org.scalatest.prop.PropertyChecks
 import play.api.libs.json._
+import scalacheckjsonfaker.schema.Schema
 
 class ArrayPropertySpec extends FlatSpec with Matchers with PropertyChecks with OptionValues {
 
@@ -25,7 +26,7 @@ class ArrayPropertySpec extends FlatSpec with Matchers with PropertyChecks with 
       (Math.min(i, j), Math.max(i, j))
     }
 
-  val extract = ArrayProperty.extract _
+  val extract = ArrayProperty.extract(Schema(JsObject.empty), _)
 
   it should "skip when type not array" in {
     extract(JsObject(Map(typeProp("unknown")))) shouldBe None

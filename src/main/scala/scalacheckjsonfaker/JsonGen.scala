@@ -3,10 +3,9 @@ package scalacheckjsonfaker
 import org.scalacheck.Gen
 import play.api.libs.json.{JsObject, JsValue, Json}
 import scalacheckjsonfaker.properties.Properties
+import scalacheckjsonfaker.schema.Schema
 
-import scala.io.Source
-
-object Faker {
+object JsonGen {
 
   def from(s: String): Gen[String] = {
     Json.parse(s) match {
@@ -16,15 +15,6 @@ object Faker {
   }
 
   def from(o: JsObject): Gen[JsValue] = {
-    Properties.extract(o).getOrElse(throw new Exception("Unknown type"))
+    Properties.extract(Schema(o), o).getOrElse(throw new Exception("Unknown type"))
   }
-}
-
-object Main extends App {
-
-  val schema = Source.fromResource("test.json").getLines().toList.mkString
-
-  println(Faker.from(schema).sample.get)
-
-
 }
