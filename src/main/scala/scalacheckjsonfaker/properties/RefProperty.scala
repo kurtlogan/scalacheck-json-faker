@@ -7,12 +7,12 @@ import scalacheckjsonfaker.schema.Schema
 
 object RefProperty {
 
-  def extract(schema: Schema, obj: JsObject): Option[Gen[JsValue]] = {
+  def extract(schema: Schema, properties: Properties)(obj: JsObject): Option[Gen[JsValue]] = {
 
     for {
       ref  <- obj.value.get("$ref")
       o    <- schema.find(ref.as[String])
-      next <- Properties.extract(schema, o)
+      next <- properties.extract(o)
     } yield next
   }
 }

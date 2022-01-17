@@ -4,6 +4,7 @@ import org.scalacheck.Gen.chooseNum
 import org.scalatest._
 import org.scalatest.prop.PropertyChecks
 import play.api.libs.json._
+import scalacheckjsonfaker.config.NumberConfig
 import scalacheckjsonfaker.schema.Schema
 
 class NumberPropertySpec extends FlatSpec with Matchers with PropertyChecks with OptionValues {
@@ -13,7 +14,8 @@ class NumberPropertySpec extends FlatSpec with Matchers with PropertyChecks with
   def typeProp(value: String) = "type" -> JsString(value)
   def maxType(max: Long) = numberType + ("maximum" -> JsNumber(max))
   def minType(max: Long) = numberType + ("minimum" -> JsNumber(max))
-  val extract = NumberProperty.extract(Schema(JsObject.empty), _)
+
+  val extract = NumberProperty.extract(NumberConfig.default) _
 
   it should "skip when type not number" in {
     extract(JsObject(Map(typeProp("unknown")))) shouldBe None

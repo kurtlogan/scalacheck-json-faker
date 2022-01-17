@@ -5,6 +5,7 @@ import org.scalacheck.Gen.chooseNum
 import org.scalatest._
 import org.scalatest.prop.PropertyChecks
 import play.api.libs.json._
+import scalacheckjsonfaker.config.{ArrayConfig, Config}
 import scalacheckjsonfaker.schema.Schema
 
 class ArrayPropertySpec extends FlatSpec with Matchers with PropertyChecks with OptionValues {
@@ -18,6 +19,8 @@ class ArrayPropertySpec extends FlatSpec with Matchers with PropertyChecks with 
   def minType(min: Int) = JsObject(Map("minItems" -> JsNumber(min)))
   def maxType(max: Int) = JsObject(Map("maxItems" -> JsNumber(max)))
 
+  val properties = new Properties(Schema(JsObject.empty), Config.default)
+
   val rangeGen: Gen[(Int, Int)] =
     for {
       i <- chooseNum(1, 100)
@@ -26,7 +29,7 @@ class ArrayPropertySpec extends FlatSpec with Matchers with PropertyChecks with 
       (Math.min(i, j), Math.max(i, j))
     }
 
-  val extract = ArrayProperty.extract(Schema(JsObject.empty), _)
+  val extract = ArrayProperty.extract(properties, ArrayConfig.default) _
 
   it should "skip when type not array" in {
     extract(JsObject(Map(typeProp("unknown")))) shouldBe None

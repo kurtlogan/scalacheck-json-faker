@@ -6,7 +6,7 @@ import scalacheckjsonfaker.schema.Schema
 
 object BooleanProperty {
 
-  def extract(schema: Schema, obj: JsObject): Option[Gen[JsValue]] = {
+  def extract(obj: JsObject): Option[Gen[JsValue]] = {
     if(obj.value.get("type").contains(JsString("boolean"))) {
       Some(Gen.oneOf(true, false).map(JsBoolean))
     } else {

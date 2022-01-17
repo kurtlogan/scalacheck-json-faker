@@ -3,6 +3,7 @@ package scalacheckjsonfaker.properties
 import org.scalatest.{FlatSpec, Matchers, OptionValues}
 import org.scalatest.prop.PropertyChecks
 import play.api.libs.json.{JsObject, JsString, JsValue, Json}
+import scalacheckjsonfaker.config.Config
 import scalacheckjsonfaker.schema.Schema
 
 
@@ -29,7 +30,8 @@ class RefPropertySpec extends FlatSpec with Matchers with PropertyChecks with Op
       | }
       |}""".stripMargin).as[JsObject]
 
-  val extract = RefProperty.extract(Schema(schema), _)
+  val properties = new Properties(Schema(schema), Config.default)
+  val extract = RefProperty.extract(Schema(schema), properties) _
 
   def refProperty(path: String) = JsObject(Map("$ref" -> JsString(path)))
 

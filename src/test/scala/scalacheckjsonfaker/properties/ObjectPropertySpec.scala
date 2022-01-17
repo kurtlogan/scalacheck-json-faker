@@ -4,6 +4,7 @@ import org.scalacheck.Shrink
 import org.scalatest._
 import org.scalatest.prop.PropertyChecks
 import play.api.libs.json._
+import scalacheckjsonfaker.config.Config
 import scalacheckjsonfaker.schema.Schema
 
 class ObjectPropertySpec extends FlatSpec with Matchers with PropertyChecks with OptionValues {
@@ -17,7 +18,8 @@ class ObjectPropertySpec extends FlatSpec with Matchers with PropertyChecks with
   val stringType = JsObject(Map(typeProp("string")))
   val booleanProperties = JsObject(Map("properties" -> JsObject(Map("b" -> booleanType))))
   val stringProperties = JsObject(Map("properties" -> JsObject(Map("s" -> stringType))))
-  val extract = ObjectProperty.extract(Schema(JsObject.empty), _)
+  val properties = new Properties(Schema(JsObject.empty), Config.default)
+  val extract = ObjectProperty.extract(properties) _
 
   it should "skip when type not object" in {
     extract(JsObject(Map(typeProp("unknown")))) shouldBe None
