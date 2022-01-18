@@ -8,7 +8,7 @@ object ObjectProperty {
 
   def gen(generators: Generators)(obj: JsObject): Option[Gen[JsValue]] = {
 
-    if(Type(obj).contains("object")) {
+    if(Type(obj).is("object")) {
       val required = Required(obj).getOrDefault(List())
 
       val props = Properties(obj).asOpt.map(_.value).getOrElse(throw new Exception("Properties is required for object"))

@@ -9,7 +9,7 @@ object NumberProperty {
 
   def gen(config: NumberConfig)(obj: JsObject): Option[Gen[JsValue]] = {
 
-    if(Type(obj).contains("number")) {
+    if(Type(obj).is("number")) {
       val min = Minimum(obj).getOrDefault(config.minimum)
       val max = Maximum(obj).getOrDefault(config.maximum)
 

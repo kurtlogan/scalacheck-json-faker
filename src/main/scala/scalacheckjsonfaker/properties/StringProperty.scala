@@ -10,7 +10,7 @@ import wolfendale.scalacheck.regexp.RegexpGen
 object StringProperty {
 
   def gen(config: StringConfig)(obj: JsObject): Option[Gen[JsValue]] = {
-    if(Type(obj).contains("string")) {
+    if(Type(obj).is("string")) {
 
       val min = MinLength(obj).getOrDefault(config.minLength)
       val max = MaxLength(obj).getOrDefault(config.maxLength)

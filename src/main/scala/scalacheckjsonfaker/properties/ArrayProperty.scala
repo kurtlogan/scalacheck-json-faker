@@ -9,7 +9,7 @@ object ArrayProperty {
 
   def gen(generators: Generators, config: ArrayConfig)(obj: JsObject): Option[Gen[JsValue]] = {
 
-    if(Type(obj).contains("array")) {
+    if(Type(obj).is("array")) {
       val items = Items(obj).asOpt.getOrElse(throw new Exception("Items is required"))
       val itemGen = generators.generate(items).getOrElse(throw new Exception("Unknown object type"))
 
